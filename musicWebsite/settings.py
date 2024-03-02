@@ -25,7 +25,7 @@ SECRET_KEY = 'fku45ig=n-h)tt!bd$&kfwzd*(in78b(9%^05unafyiv%6c=&6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["3cdd267ca2d44492ab57cc37f836c006.vfs.cloud9.eu-west-1.amazonaws.com", "x23212365-music-event-env.eba-sgycaxft.eu-west-1.elasticbeanstalk.com"]
+ALLOWED_HOSTS = ["652c700e23aa42538930de793bd5a97e.vfs.cloud9.eu-west-1.amazonaws.com", "x23212365-music-event-env.eba-sgycaxft.eu-west-1.elasticbeanstalk.com"]
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'events'
 ]
 
 MIDDLEWARE = [
@@ -54,7 +55,7 @@ ROOT_URLCONF = 'musicWebsite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ["templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,3 +119,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'staticfiles'),
+]
+
+STATIC_ROOT = 'events/staticfiles'
