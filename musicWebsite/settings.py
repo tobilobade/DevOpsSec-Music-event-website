@@ -25,7 +25,7 @@ SECRET_KEY = 'fku45ig=n-h)tt!bd$&kfwzd*(in78b(9%^05unafyiv%6c=&6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["3cdd267ca2d44492ab57cc37f836c006.vfs.cloud9.eu-west-1.amazonaws.com"]
+ALLOWED_HOSTS = ["3cdd267ca2d44492ab57cc37f836c006.vfs.cloud9.eu-west-1.amazonaws.com", "x23212365-music-event-env.eba-sgycaxft.eu-west-1.elasticbeanstalk.com"]
 
 
 # Application definition
