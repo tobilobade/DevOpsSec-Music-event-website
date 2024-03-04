@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Events Submission{% endblock %}
+
+{% block content %}
+{% include 'events/header.html' %}
+
+<div class="container mt-5">
+    <h3>Create New Event</h3>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<div class="container mt-5">
+    <h3>Your Events</h3>
+    {% if existing_events %}
+    <ul>
+        {% for event in existing_events %}
+        <li>
+            <h5>{{ event.title }}</h5>
+            <p>{{ event.description }}</p>
+            <!-- Other event details -->
+            <form method="post" action="{% url 'delete_event' event.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No events submitted yet.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
