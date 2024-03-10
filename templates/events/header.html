@@ -16,9 +16,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Bookings</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
-                </li>
+                   {% if user.is_authenticated %}
+                    <!-- User is authenticated, show the user's name and a logout link -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">{{ user.username }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+                    </li>
+                {% else %}
+                    <!-- User is not authenticated, show the login link -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>

@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,7 +30,10 @@ SECRET_KEY = 'fku45ig=n-h)tt!bd$&kfwzd*(in78b(9%^05unafyiv%6c=&6'
 DEBUG = True
 
 ALLOWED_HOSTS = ["652c700e23aa42538930de793bd5a97e.vfs.cloud9.eu-west-1.amazonaws.com", "x23212365-music-event-env.eba-sgycaxft.eu-west-1.elasticbeanstalk.com"]
-
+CSRF_TRUSTED_ORIGINS = [
+    "https://652c700e23aa42538930de793bd5a97e.vfs.cloud9.eu-west-1.amazonaws.com", "https://x23212365-music-event-env.eba-sgycaxft.eu-west-1.elasticbeanstalk.com/"
+    # Add other trusted origins as needed
+]
 
 # Application definition
 
@@ -37,7 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'events'
+    'events',
+    'auth_app',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google'
 ]
 
 MIDDLEWARE = [
@@ -48,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware', 
 ]
 
 ROOT_URLCONF = 'musicWebsite.urls'
@@ -126,3 +139,30 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = 'musicWebsite/staticfiles'
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE' : [
+            'profile',
+            'email'
+        ],
+        'APP': {
+            'client_id': os.environ['CLIENT_ID'],
+            'secret': os.environ['CLIENT_SECRET'],
+        },
+        'AUTH_PARAMS': {
+            'access_type':'offline',
+        }
+    }
+}
+
+SITE_ID = 2
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
