@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Book Ticket{% endblock %}
+
+{% block content %}
+<style>
+
+    .book-ticket form {
+        margin-bottom: 15px;
+        padding: 4px 8px;
+    }
+
+    .book-ticket input[type="text"],
+    .book-ticket input[type="email"],
+    .book-ticket input[type="number"],
+    .book-ticket select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 15px;
+    }
+
+</style>
+
+<div style= "display:flex; flex-direction:row; justify-content:space-evenly ">
+    
+    
+<div style=" height:100vh; width:100%">
+    <h2 class="mt-5 mb-4 text-center">Event Details</h2>
+    <div class="card" style="width:50%; margin:0 auto;">
+        <div class="card-body" >
+            <img src="{{ event.event_image }}" class="card-img-top img-fluid" alt="Event Image" style="object-fit: cover; height: 200px;">
+            <h5 class="card-title mt-3">{{ event.title }}</h5>
+            <p class="card-text mt-3" style="font-style:italic;">{{ event.description }}</p>
+            <p class="card-text mt-3">Date and Time: {{ event.date_and_time }}</p>
+            <p class="card-text mt-3">Location: {{ event.location }}</p>
+            <!-- Add other event details here -->
+        </div>
+    </div> 
+    
+</div>
+
+<div class="book-ticket" style="background:#2066fc; height:100vh; width:100%; color:#fff">
+    <h2 class="mt-5 text-center mb-4">Book Ticket</h2>
+    <div class="card" style="width:50%; margin:0 auto;">
+        <div class="card-body" >
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="total-fee" style="text-align: center; margin-top: 20px;">
+                        <h3>Total Fee: $<span id="total-fee">0.00</span></h3>
+                </div>
+                <button type="submit" class="btn" style="background:black; color: #FB7E0A; width:100%; padding:10px; ">Book Now</button>
+            </form>
+        </div>
+    </div>
+</div
+
+<div>
+    
+    
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get elements
+        const numTicketsField = document.getElementById('id_num_tickets');
+        const ticketTypeField = document.getElementById('id_ticket_type');
+        const pricePerTicket = parseFloat('{{ price_per_ticket }}');  // Replace '{{ price_per_ticket }}' with the actual price from your context
+
+        // Function to update total fee
+        function updateTotalFee() {
+            const numTickets = parseInt(numTicketsField.value);
+            const totalFee = numTickets * pricePerTicket;
+            document.getElementById('total-fee').innerText = totalFee.toFixed(2);  // Display total fee
+        }
+
+        // Add event listeners to update total fee when the number of tickets or ticket type changes
+        numTicketsField.addEventListener('input', updateTotalFee);
+        ticketTypeField.addEventListener('change', updateTotalFee);
+
+        // Initialize total fee
+        updateTotalFee();
+    });
+</script>
+
+{% endblock %}

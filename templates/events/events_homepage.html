@@ -5,7 +5,7 @@
 {% block title %}Events website{% endblock %}
 
 {% block content %}
-{% include 'events/header.html' %}
+
 <div class="container mt-5">
     <div class="row justify-content-center align-items-center">
         <div class="col-md-6">
@@ -27,12 +27,12 @@
 
 
 <div>
-    <h3 class="mt-5">Upcoming Events</h3>
+    <h3 class="mt-5 mb-3 text-center">Upcoming Events</h3>
     {% if upcoming_events %}
 <div class="row">
     {% for event in upcoming_events %}
   <div class="col-md-3 mb-4">
-    <div class="card">
+    <div class="card ms-4">
         <img src="{{ event.event_image }}" class="card-img-top img-fluid" alt="Event Image" style="object-fit: cover; height: 200px;">
         <div class="card-body">
             <div class="d-flex justify-content-between">
@@ -40,12 +40,13 @@
              <p class="card-text border border-success border-2 px-2 text-uppercase p-auto mb-4" style="border-radius:15px; background:green; color:white;">limited</p>
             </div>
             
-            <p>{{ event.country.name}}</p>
-            <p class="card-text">{{ event.description }}</p>
+            <p style="font-weight:bold">{{ event.country.name}}</p>
+            <p class="card-text" style="font-style:italic;">{{ event.description }}</p>
             <p class="card-text"><small class="text-muted">{{ event.date_and_time }}</small></p>
+            <p class="card-text">€{{ event.price}}</p>
         </div>
         <div class="card-footer">
-            <a href="#" class="btn btn-primary">Book Ticket</a>
+            <a href="{% url 'book_event' event.id %}" class="btn btn-primary">Book Ticket</a>
         </div>
     </div>
 </div>

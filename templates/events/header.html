@@ -14,7 +14,7 @@
                     <a class="nav-link" href="#">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Bookings</a>
+                    <a   class="nav-link" href="{% url 'my_bookings' %}">My Bookings</a>
                 </li>
                    {% if user.is_authenticated %}
                     <!-- User is authenticated, show the user's name and a logout link -->

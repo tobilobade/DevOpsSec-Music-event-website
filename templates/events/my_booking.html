@@ -1,0 +1,30 @@
+<!-- my_bookings.html -->
+
+{% extends 'base.html' %}
+{% block title %}My Bookings{% endblock %}
+
+{% block content %}
+ 
+{% if bookings %}
+<div >
+    <h2 class="mt-5 mb-4 text-center">My Bookings</h2>
+    <div class="card" style="width:50%; margin:0 auto;">
+        <div class="card-body" >
+  
+    {% for booking in bookings %}
+      <p class="card-text mt-3">Event: {{ booking.event.title }}</p>
+      <p class="card-text mt-3">Event Name: {{ booking.name }}</p>
+      <p class="card-text mt-3">Number of Tickets: {{ booking.num_tickets }}</p>
+      <p class="card-text mt-3">Booking Date: {{ booking.booking_date }}</p>
+      <hr>
+      <hr>
+      <!-- Add more details if needed -->
+    {% endfor %}
+  
+       </div>
+    </div> 
+</div>
+{% else %}
+  <p>No bookings found.</p>
+{% endif %}
+{% endblock %}
