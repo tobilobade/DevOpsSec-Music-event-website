@@ -84,6 +84,3 @@ def my_bookings(request):
     bookings = Booking.objects.filter(user=request.user)
     return render (request, "events/my_booking.html", {'bookings': bookings})
     
-
-def event_submission(request):
-    existing_events = Event.objects.filter(user=request.user)
