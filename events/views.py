@@ -3,11 +3,26 @@ import boto3
 from .forms import EventForm, BookingForm
 from .models import Event, Booking
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail, EmailMultiAlternatives
+import qrcode
+from io import BytesIO
+from django.contrib import messages
+from django.utils import timezone
 
 
 def homepage(request):
-    upcoming_events = Event.objects.all() # I am getting the objects of the event model
-    return render(request, 'events/events_homepage.html', {'upcoming_events': upcoming_events})
+    latest_events = Event.objects.filter(date_and_time__gte=timezone.now()).order_by('-date_and_time')[:6]# I am getting the objects of the event model
+    return render(request, 'events/events_homepage.html', {'latest_events': latest_events})
+    
+def all_events(request):
+    events = Event.objects.all()
+    return render(request, 'events/all_events.html', {'events': events})
+    
+def search_events(request):
+    query = request.GET.get('query')
+    # Filter events based on title or country code (assuming country code is stored in the CountryField)
+    events = Event.objects.filter(title__icontains=query) | Event.objects.filter(country__icontains=query)
+    return render(request, 'events/search_results.html', {'events': events, 'query': query})
     
 def upload_to_s3(image_file, file_name):
     s3 = boto3.client('s3')
@@ -67,7 +82,24 @@ def book_event(request, event_id):
             booking.user = request.user
             booking.event_id = event_id
             booking.name = form.cleaned_data['name']  # Assign the name from the form
+            booking.email = form.cleaned_data['email']  # Assign the email from the form
+            booking.num_tickets = form.cleaned_data['num_tickets']  # Assign the number of tickets from the form
             booking.save()
+
+            # Generate QR code
+            qr_data = f"Name: {booking.name}\nEmail: {booking.email}\nNumber of Tickets: {booking.num_tickets}"
+            qr_img = qrcode.make(qr_data)
+            qr_img_io = BytesIO()
+            qr_img.save(qr_img_io, format='PNG')
+
+            # Send email with QR code
+            subject = 'Your Ticket QR Code'
+            message = f"Hi {booking.name},\n\nThank you for purchasing tickets to our event. Your booking details are as follows:\n\nName: {booking.name}\nEmail: {booking.email}\nNumber of Tickets: {booking.num_tickets}\n\nPlease find your ticket QR code attached below."
+            from_email = 'dammyadetugboboh@gmail.com'  # Replace with your email address
+            to_email = booking.email
+            email = EmailMultiAlternatives(subject, message, from_email, [to_email])
+            email.attach('ticket_qr_code.png', qr_img_io.getvalue(), 'image/png')
+            email.send(fail_silently=False)
             return redirect('my_bookings')  # Redirect to a success page
     else:
         form = BookingForm()
@@ -84,3 +116,12 @@ def my_bookings(request):
     bookings = Booking.objects.filter(user=request.user)
     return render (request, "events/my_booking.html", {'bookings': bookings})
     
+def delete_booking(request, booking_id):
+    booking = Booking.objects.get(pk=booking_id)
+    if request.method == 'POST':
+        # Logic for deleting the booking
+        booking.delete()
+        messages.success(request, 'Booking deleted successfully.')
+        return redirect('my_bookings')
+    else:
+        return render(request, 'events/delete_booking_confirmation.html', {'booking': booking})

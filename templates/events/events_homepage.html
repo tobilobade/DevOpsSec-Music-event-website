@@ -28,9 +28,9 @@
 
 <div>
     <h3 class="mt-5 mb-3 text-center">Upcoming Events</h3>
-    {% if upcoming_events %}
+    {%  if latest_events %}
 <div class="row">
-    {% for event in upcoming_events %}
+    {% for event in latest_events %}
   <div class="col-md-3 mb-4">
     <div class="card ms-4">
         <img src="{{ event.event_image }}" class="card-img-top img-fluid" alt="Event Image" style="object-fit: cover; height: 200px;">
@@ -41,7 +41,10 @@
             </div>
             
             <p style="font-weight:bold">{{ event.country.name}}</p>
-            <p class="card-text" style="font-style:italic;">{{ event.description }}</p>
+            <p class="card-text" style="font-style:italic;">{{ event.description|truncatewords:10 }}</p>
+             {% if event.description|wordcount > 10 %}
+                <a href="{% url 'book_event' event.id %}">Read more</a>
+            {% endif %}
             <p class="card-text"><small class="text-muted">{{ event.date_and_time }}</small></p>
             <p class="card-text">€{{ event.price}}</p>
         </div>
@@ -51,8 +54,14 @@
     </div>
 </div>
 
+
     {% endfor %}
 </div>
+
+ <div class="text-center mt-4">
+        <a href="{% url 'all_events' %}" class="btn" style="color:#FB7E0A; background:#1c1c1c">View More</a>
+    </div>
+    
 {% else %}
 <div class="alert alert-info" role="alert">
     No upcoming events at the moment. Check back later!

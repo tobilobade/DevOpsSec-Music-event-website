@@ -5,13 +5,14 @@ from datetime import datetime
 
 class BookingForm(forms.ModelForm):
     name = forms.CharField(max_length=100, label='Your Name')
+    email = forms.EmailField(label='Your Email') 
     ticket_type = forms.ChoiceField(choices=[('general', 'General'), ('vip', 'VIP')], label='Ticket Type')
     booking_date_time = forms.DateTimeField(widget=forms.HiddenInput(), initial=datetime.now)
     num_tickets = forms.IntegerField(initial=1, min_value=1, label='Number of Tickets')  # Updated field
 
     class Meta:
         model = Booking
-        fields = ['name', 'num_tickets', 'ticket_type', 'booking_date_time']
+        fields = ['name', 'email', 'num_tickets', 'ticket_type', 'booking_date_time']
 
 
 class DateTimeLocalInput(forms.DateTimeInput):

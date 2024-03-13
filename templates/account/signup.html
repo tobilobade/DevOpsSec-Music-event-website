@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load socialaccount %}
+{% block content %}
+
+<style>
+  .card-body{
+       box-shadow: -8px 10px 5px 0px rgba(179,179,179,0.59);
+-webkit-box-shadow: -8px 10px 5px 0px rgba(179,179,179,0.59);
+-moz-box-shadow: -8px 10px 5px 0px rgba(179,179,179,0.59);
+  }
+
+  .card-body form {
+    padding: 20px; 
+ 
+  }
+  
+  .card-body form input[type="text"],
+  .card-body form input[type="email"],
+  .card-body form input[type="password"] {
+    margin-bottom: 10px;
+    padding: 10px; 
+    border-radius: 5px; 
+    border: 1px solid #ddd; 
+  }
+
+  .card-body form button[type="submit"] {
+    padding: 10px 20px;
+    border-radius: 5px; 
+    border: none; 
+    background-color: #007bff; 
+    color: #fff; 
+    cursor: pointer; 
+    width:100%;
+  }
+  
+  .card-body form li {
+      color:grey;
+      font-weight:light;
+      font-size:0.9rem;
+  }
+
+  .card-body form button[type="submit"]:hover {
+    background-color: #252633; 
+    color:yellow;
+  }
+
+  .btn-google,
+  .btn-signup {
+    margin-top: 10px; 
+  }
+</style>
+
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card mt-5 mb-5">
+        <div class="card-body" style="border:none;">
+          <h2 class="card-title text-center">DsaEvents</h2>
+          <p class="card-title text-center">SIGN UP</p>
+          <form method="post" action="{% url 'account_signup' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <hr>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+          </form>
+          <hr>
+          <p class="card-text font-weight-light text-secondary">Already have an account? Then please sign in.</p>
+          <div class="flex">
+             <a href="{% provider_login_url 'google' %}" class="btn btn-outline-secondary">Sign in with Google</a>
+             <a href="{% url 'account_login' %}" class="btn btn-outline-secondary">Sign In</a> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

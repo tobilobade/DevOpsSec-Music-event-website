@@ -6,10 +6,10 @@
 {% block content %}
  
 {% if bookings %}
-<div >
+<div>
     <h2 class="mt-5 mb-4 text-center">My Bookings</h2>
     <div class="card" style="width:50%; margin:0 auto;">
-        <div class="card-body" >
+        <div class="card-body">
   
     {% for booking in bookings %}
       <p class="card-text mt-3">Event: {{ booking.event.title }}</p>
@@ -17,8 +17,15 @@
       <p class="card-text mt-3">Number of Tickets: {{ booking.num_tickets }}</p>
       <p class="card-text mt-3">Booking Date: {{ booking.booking_date }}</p>
       <hr>
+      
+      
+      <!-- Add Delete Button -->
+      <form action="{% url 'delete_booking' booking.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" onclick="return confirm('Deleting this booking will require you to purchase another ticket or reference your email. Are you sure you want to delete?')" class="btn btn-danger">Delete</button>
+      </form>
       <hr>
-      <!-- Add more details if needed -->
+      <hr>
     {% endfor %}
   
        </div>

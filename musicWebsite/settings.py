@@ -140,6 +140,14 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = 'musicWebsite/staticfiles'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Replace with your SMTP server address
+EMAIL_PORT = 587  # Replace with the port number of your SMTP server
+EMAIL_USE_TLS = True  # Enable TLS for secure connection
+EMAIL_HOST_USER = 'dammyadetugboboh@gmail.com'  # Replace with your email address or SMTP username
+EMAIL_HOST_PASSWORD = 'segczniueoiimhmp' 
+DEFAULT_FROM_EMAIL = 'dammyadetugboboh@gmail.com'
+
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
