@@ -112,6 +112,7 @@ def book_event(request, event_id):
     
     return render(request, 'events/booking_form.html', context)
 
+@login_required
 def my_bookings(request):
     bookings = Booking.objects.filter(user=request.user)
     return render (request, "events/my_booking.html", {'bookings': bookings})
