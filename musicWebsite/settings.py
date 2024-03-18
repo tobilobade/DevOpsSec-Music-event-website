@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -29,10 +28,11 @@ SECRET_KEY = 'fku45ig=n-h)tt!bd$&kfwzd*(in78b(9%^05unafyiv%6c=&6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["652c700e23aa42538930de793bd5a97e.vfs.cloud9.eu-west-1.amazonaws.com", "x23212365-music-event-env.eba-sgycaxft.eu-west-1.elasticbeanstalk.com"]
+ALLOWED_HOSTS = ["652c700e23aa42538930de793bd5a97e.vfs.cloud9.eu-west-1.amazonaws.com",
+"x23212365-music-event-env.eba-sgycaxft.eu-west-1.elasticbeanstalk.com"]
 CSRF_TRUSTED_ORIGINS = [
-    "https://652c700e23aa42538930de793bd5a97e.vfs.cloud9.eu-west-1.amazonaws.com", "https://x23212365-music-event-env.eba-sgycaxft.eu-west-1.elasticbeanstalk.com/"
-    # Add other trusted origins as needed
+    "https://652c700e23aa42538930de793bd5a97e.vfs.cloud9.eu-west-1.amazonaws.com",
+"https://x23212365-music-event-env.eba-sgycaxft.eu-west-1.elasticbeanstalk.com/"
 ]
 
 # Application definition
@@ -144,8 +144,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # Replace with your SMTP server address
 EMAIL_PORT = 587  # Replace with the port number of your SMTP server
 EMAIL_USE_TLS = True  # Enable TLS for secure connection
-EMAIL_HOST_USER = 'dammyadetugboboh@gmail.com'  # Replace with your email address or SMTP username
-EMAIL_HOST_PASSWORD = 'segczniueoiimhmp' 
+EMAIL_HOST_USER = 'dammyadetugboboh@gmail.com'
+EMAIL_HOST_PASSWORD = 'segczniueoiimhmp'
 DEFAULT_FROM_EMAIL = 'dammyadetugboboh@gmail.com'
 
 
