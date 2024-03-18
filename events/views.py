@@ -126,3 +126,8 @@ def delete_booking(request, booking_id):
         return redirect('my_bookings')
     else:
         return render(request, 'events/delete_booking_confirmation.html', {'booking': booking})
+        
+        
+def contact_us(request):
+    return render(request, 'events/contact_us.html')
+    

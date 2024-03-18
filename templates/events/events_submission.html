@@ -4,8 +4,12 @@
 {% block title %}Events Submission{% endblock %}
 
 {% block content %}
+<div style ="display:flex; justify-content:space-between; align-items:center;">
+    
 
-<div class="container mt-5">
+<div>
+    
+    <div class="container mt-5">
     <h3>Create New Event</h3>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -14,7 +18,7 @@
     </form>
 </div>
 
-<div class="container mt-5">
+    <div class="container mt-5">
     <h3>Your Events</h3>
     {% if existing_events %}
     <ul>
@@ -39,6 +43,16 @@
     {% else %}
     <p>No events submitted yet.</p>
     {% endif %}
+</div>
+ 
+</div>
+
+
+<div>
+     <img src="{% static 'events/images/Schedule.gif' %}" alt="contact Image" class="img-fluid" style="width: 600px;">
+</div>
+
+
 </div>
 
 {% endblock %}

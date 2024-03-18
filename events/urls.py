@@ -11,7 +11,8 @@ urlpatterns = [
  path('my-bookings/', views.my_bookings, name='my_bookings'),
  path('delete-booking/<int:booking_id>/', views.delete_booking, name='delete_booking'),
  path('all-events/', views.all_events, name='all_events'),
- path('search/', views.search_events, name='search_events')
+ path('search/', views.search_events, name='search_events'),
+ path('contact-us/', views.contact_us, name='contact_us'),
  
 ]
 

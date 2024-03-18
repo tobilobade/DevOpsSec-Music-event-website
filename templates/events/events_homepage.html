@@ -11,8 +11,8 @@
         <div class="col-md-6">
             <div class="property-title-text">
                 
-                <h2 class="text-uppercase">Your Ticket to Paradise: Don't Miss Out on Our <span class="fw-bolder" style="color:red">Epic Events!</span></h2>
-                <p class="fw-light">Experience the thrill of discovery, the joy of connection, and the wonder of shared experiences at our extraordinary events</p>
+                <h2 class="text-uppercase">Your Ticket to Paradise: Don't Miss Out on <span class="fw-bolder" style="color:red">Epic Events!</span></h2>
+                <p class="fw-light">Experience the thrill of discovery, the joy of connection, and the wonder of shared experiences at extraordinary events</p>
                 <button class="btn btn-lg fw-light" style="color:#1c1c1c; background:#FB7E0A;">Explore events</button>
             </div>
         </div>
@@ -41,7 +41,8 @@
             </div>
             
             <p style="font-weight:bold">{{ event.country.name}}</p>
-            <p class="card-text" style="font-style:italic;">{{ event.description|truncatewords:10 }}</p>
+            <p >Event Type : {{ event.event_type}}</p>
+            <p class="card-text" >{{ event.description|truncatewords:10 }}</p>
              {% if event.description|wordcount > 10 %}
                 <a href="{% url 'book_event' event.id %}">Read more</a>
             {% endif %}
@@ -92,7 +93,7 @@
 </div>
 
 
-<div class="mt-5" style="background: linear-gradient(90deg, rgba(255,109,0,1) 6%, rgba(0,0,0,1) 98%); padding:10px;">
+<div class="mt-5" style="background:#3F3F3F; padding:10px;">
     <h3 class="mt-3 mb-3 text-center" style="color:white;">VARIOUS TYPE OF EVENTS</h3>
     <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" style="width:50%; margin:0 auto;">
   <div class="carousel-inner" >

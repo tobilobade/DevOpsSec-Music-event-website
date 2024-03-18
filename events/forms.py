@@ -2,6 +2,7 @@ from django import forms
 from .models import Event, Booking
 from django_countries import countries
 from datetime import datetime
+from django.forms.widgets import DateTimeInput
 
 class BookingForm(forms.ModelForm):
     name = forms.CharField(max_length=100, label='Your Name')
@@ -20,7 +21,7 @@ class DateTimeLocalInput(forms.DateTimeInput):
 
 
 class EventForm(forms.ModelForm):
-    date_and_time = forms.DateTimeField(input_formats=['%d/%m/%Y, %H:%M'])
+    date_and_time = forms.DateTimeField(input_formats=['%d/%m/%Y, %H:%M'], widget=DateTimeInput(attrs={'placeholder': 'DD/MM/YYYY, HH:MM'}))
     class Meta:
         model = Event
         fields = ['event_type', 'title', 'date_and_time', 'location', 'country', 'description', 'event_image', 'price']
