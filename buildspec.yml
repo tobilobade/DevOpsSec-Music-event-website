@@ -11,6 +11,7 @@ phases:
             - python --version
             - pylint --disable=C0103 $CODEBUILD_SRC_DIR/*.py
             - pylint --disable=C0103 $CODEBUILD_SRC_DIR/musicWebsite/*.py
+            - pylint --disable=C0103 $CODEBUILD_SRC_DIR/events/*.py
 artifacts:
     files:
         - '**/*'
