@@ -1,7 +1,7 @@
+"""url definitions for the routes"""
 from django.urls import path
-from . import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
- 
+from . import views
 urlpatterns = [
  path('', views.homepage, name='homepage'),
  path('events-submission/', views.create_event, name='event-submission'),
@@ -13,7 +13,5 @@ urlpatterns = [
  path('all-events/', views.all_events, name='all_events'),
  path('search/', views.search_events, name='search_events'),
  path('contact-us/', views.contact_us, name='contact_us'),
- 
 ]
-
 urlpatterns += staticfiles_urlpatterns()
