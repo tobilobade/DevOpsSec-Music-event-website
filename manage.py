@@ -1,7 +1,7 @@
+"""This is a configuration file instead of using django-admin"""
 #!/usr/bin/env python
 import os
 import sys
-
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'musicWebsite.settings')
     try:
