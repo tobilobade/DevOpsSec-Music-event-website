@@ -24,24 +24,6 @@ class BookingForm(forms.ModelForm):
         """fields for booking details."""
         model = Booking
         fields = ['name', 'email', 'num_tickets', 'ticket_type', 'booking_date_time']
-    def clean_name(self):
-        """
-        Clean and validate the 'name' field.
-        """
-        name = self.cleaned_data.get('name')
-        # Placeholder logic: Ensure that the name is at least 3 characters long
-        if len(name) < 3:
-            raise forms.ValidationError("Name must be at least 3 characters long.")
-        return name
-    def clean_email(self):
-        """
-        Clean and validate the 'email' field.
-        """
-        email = self.cleaned_data.get('email')
-        # Placeholder logic: Ensure that the email contains '@'
-        if '@' not in email:
-            raise forms.ValidationError("Please enter a valid email address.")
-        return email
 
 
 class DateTimeLocalInput(forms.DateTimeInput):
@@ -62,27 +44,7 @@ class EventForm(forms.ModelForm):
             'country': forms.Select(choices=[(country.code, country.name)
             for country in countries]),
         }
-        
-    def clean_date_and_time(self):
-        """
-        Clean and validate the 'date_and_time' field.
-        """
-        date_and_time = self.cleaned_data.get('date_and_time')
-        # Placeholder logic: Ensure that the event date is in the future
-        if date_and_time <= datetime.now():
-            raise forms.ValidationError("Event date must be in the future.")
-        return date_and_time
 
-    def clean_location(self):
-        """
-        Clean and validate the 'location' field.
-        """
-        location = self.cleaned_data.get('location')
-        # Placeholder logic: Ensure that the location is not empty
-        if not location:
-            raise forms.ValidationError("Location cannot be empty.")
-        return location
-    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['event_type'].choices = Event.EVENT_TYPE_CHOICES
