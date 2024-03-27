@@ -3,13 +3,14 @@ from io import BytesIO
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMultiAlternatives
+from django.views.decorators.http import require_POST, require_safe
 from django.shortcuts import render,redirect, get_object_or_404
 from django.utils import timezone
 import qrcode
 import boto3
 from .forms import EventForm, BookingForm
 from .models import Event, Booking
-from django.views.decorators.http import require_GET, require_POST, require_safe
+
 
 @require_safe
 def homepage(request):
@@ -17,10 +18,12 @@ def homepage(request):
     latest_events=Event.objects.filter(
     date_and_time__gte=timezone.now()).order_by('-date_and_time')[:6]
     return render(request, 'events/events_homepage.html', {'latest_events': latest_events})
+@require_safe
 def all_events(request):
     """View function to view all events."""
     events = Event.objects.all()
     return render(request, 'events/all_events.html', {'events': events})
+@require_safe
 def search_events(request):
     """View function to search events."""
     query = request.GET.get('query')
@@ -33,6 +36,7 @@ def upload_to_s3(image_file, file_name):
     bucket_name = 'x23212365-devops-proj'
     s3.upload_fileobj(image_file, bucket_name, file_name)
     return f"https://{bucket_name}.s3.amazonaws.com/{file_name}"
+@require_POST
 @login_required
 def create_event(request):
     """View function for creating an event."""
@@ -53,6 +57,7 @@ def create_event(request):
     existing_events = Event.objects.filter(user=request.user)
     return render(request, 'events/events_submission.html',
     {'form': form, 'existing_events': existing_events})
+@require_POST
 def delete_event(request, event_id):
     """View function for deleting an event."""
     event = get_object_or_404(Event, pk=event_id)
@@ -60,6 +65,7 @@ def delete_event(request, event_id):
         event.delete()
         return redirect('event-submission')
     return redirect('homepage')
+@require_POST
 def update_event(request, event_id):
     """View function for updating an event."""
     event = get_object_or_404(Event, pk=event_id)
@@ -73,6 +79,7 @@ def update_event(request, event_id):
         # If it's a GET request, create a form instance with the instance of the house object
         form = EventForm(instance=event)
     return render(request, 'events/update_event.html', {'form': form})
+@require_POST
 def book_event(request, event_id):
     """View function for booking an event."""
     event = get_object_or_404(Event, pk=event_id)
@@ -109,11 +116,13 @@ def book_event(request, event_id):
         'price_per_ticket': price_per_ticket,
     }
     return render(request, 'events/booking_form.html', context)
+@require_safe
 @login_required
 def my_bookings(request):
     """View function for viewing bookings of an event."""
     bookings = Booking.objects.filter(user=request.user)
     return render (request, "events/my_booking.html", {'bookings': bookings})
+@require_POST
 def delete_booking(request, booking_id):
     """View function for deleting bookings of an event."""
     booking = Booking.objects.get(pk=booking_id)
@@ -123,6 +132,7 @@ def delete_booking(request, booking_id):
         messages.success(request, 'Booking deleted successfully.')
         return redirect('my_bookings')
     return render(request, 'events/delete_booking_confirmation.html', {'booking': booking})
+@require_safe
 def contact_us(request):
     """View function for contacting dsaEvents"""
     return render(request, 'events/contact_us.html')
