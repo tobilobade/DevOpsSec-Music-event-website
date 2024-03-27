@@ -145,7 +145,7 @@ EMAIL_HOST = 'smtp.gmail.com'  # Replace with your SMTP server address
 EMAIL_PORT = 587  # Replace with the port number of your SMTP server
 EMAIL_USE_TLS = True  # Enable TLS for secure connection
 EMAIL_HOST_USER = 'dammyadetugboboh@gmail.com'
-EMAIL_HOST_PASSWORD = 'segczniueoiimhmp'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = 'dammyadetugboboh@gmail.com'
 
 
