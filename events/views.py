@@ -9,8 +9,9 @@ import qrcode
 import boto3
 from .forms import EventForm, BookingForm
 from .models import Event, Booking
+from django.views.decorators.http import require_GET, require_POST, require_safe
 
-
+@require_safe
 def homepage(request):
     """View function for the homepage."""
     latest_events=Event.objects.filter(
