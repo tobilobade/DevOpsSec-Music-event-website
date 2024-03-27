@@ -36,7 +36,7 @@ def upload_to_s3(image_file, file_name):
     bucket_name = 'x23212365-devops-proj'
     s3.upload_fileobj(image_file, bucket_name, file_name)
     return f"https://{bucket_name}.s3.amazonaws.com/{file_name}"
-@require_POST
+
 @login_required
 def create_event(request):
     """View function for creating an event."""
@@ -65,7 +65,6 @@ def delete_event(request, event_id):
         event.delete()
         return redirect('event-submission')
     return redirect('homepage')
-@require_POST
 def update_event(request, event_id):
     """View function for updating an event."""
     event = get_object_or_404(Event, pk=event_id)
@@ -79,7 +78,6 @@ def update_event(request, event_id):
         # If it's a GET request, create a form instance with the instance of the house object
         form = EventForm(instance=event)
     return render(request, 'events/update_event.html', {'form': form})
-@require_POST
 def book_event(request, event_id):
     """View function for booking an event."""
     event = get_object_or_404(Event, pk=event_id)
