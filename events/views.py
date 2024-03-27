@@ -9,8 +9,10 @@ import qrcode
 import boto3
 from .forms import EventForm, BookingForm
 from .models import Event, Booking
+from django.views.decorators.csrf import csrf_protect
 
 
+@csrf_protect
 def homepage(request):
     """View function for the homepage."""
     latest_events=Event.objects.filter(
