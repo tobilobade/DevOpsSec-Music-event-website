@@ -65,21 +65,20 @@ def delete_event(request, event_id):
         event.delete()
         return redirect('event-submission')
     return redirect('homepage')
-@require_safe
+@require_POST
 def update_event(request, event_id):
     """View function for updating an event."""
     event = get_object_or_404(Event, pk=event_id)
     if request.method == 'POST':
-        # Create a form instance with the POST data and the instance of the house object
+        # Created a form instance with the POST data and the instance of the house object
         form = EventForm(request.POST, request.FILES, instance=event)
         if form.is_valid():
             form.save()
-            return redirect('homepage')  # Redirect to homepage after successful update
+            return redirect('homepage')  # Redirected to homepage after successful update
     else:
-        # If it's a GET request, create a form instance with the instance of the house object
         form = EventForm(instance=event)
     return render(request, 'events/update_event.html', {'form': form})
-@require_safe
+@require_POST
 def book_event(request, event_id):
     """View function for booking an event."""
     event = get_object_or_404(Event, pk=event_id)

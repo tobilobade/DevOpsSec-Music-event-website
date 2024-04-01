@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'fku45ig=n-h)tt!bd$&kfwzd*(in78b(9%^05unafyiv%6c=&6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["652c700e23aa42538930de793bd5a97e.vfs.cloud9.eu-west-1.amazonaws.com",
 "x23212365-music-event-env.eba-sgycaxft.eu-west-1.elasticbeanstalk.com"]
