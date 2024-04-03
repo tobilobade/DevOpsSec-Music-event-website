@@ -64,7 +64,6 @@ def delete_event(request, event_id):
         event.delete()
         return redirect('event-submission')
     return redirect('homepage')
-@require_POST
 def update_event(request, event_id):
     """View function for updating an event."""
     event = get_object_or_404(Event, pk=event_id)
@@ -77,7 +76,7 @@ def update_event(request, event_id):
     else:
         form = EventForm(instance=event)
     return render(request, 'events/update_event.html', {'form': form})
-@require_GET
+@login_required
 def book_event(request, event_id):
     """View function for booking an event."""
     event = get_object_or_404(Event, pk=event_id)
@@ -130,7 +129,6 @@ def delete_booking(request, booking_id):
         messages.success(request, 'Booking deleted successfully.')
         return redirect('my_bookings')
     return render(request, 'events/delete_booking_confirmation.html', {'booking': booking})
-@require_safe
 def contact_us(request):
     """View function for contacting dsaEvents"""
     return render(request, 'events/contact_us.html')
