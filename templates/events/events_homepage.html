@@ -27,7 +27,7 @@
 
 
 <div>
-    <h3 class="mt-5 mb-3 text-center">Upcoming Events</h3>
+    <h3 class="mt-5 mb-3 text-center">Upcoming Events </h3>
     {%  if latest_events %}
 <div class="row">
     {% for event in latest_events %}
@@ -41,10 +41,9 @@
             </div>
             
             <p style="font-weight:bold">{{ event.country.name}}</p>
-            <p >Event Type : {{ event.event_type}}</p>
             <p class="card-text" >{{ event.description|truncatewords:10 }}</p>
              {% if event.description|wordcount > 10 %}
-                <a href="{% url 'book_event' event.id %}">Read more</a>
+                <a href="{% url 'book_event' event.id %}">Read more...</a>
             {% endif %}
             <p class="card-text"><small class="text-muted">{{ event.date_and_time }}</small></p>
             <p class="card-text">€{{ event.price}}</p>
