@@ -3,7 +3,7 @@ from io import BytesIO
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMultiAlternatives
-from django.views.decorators.http import require_POST, require_safe
+from django.views.decorators.http import require_POST, require_safe, require_GET
 from django.shortcuts import render,redirect, get_object_or_404
 from django.utils import timezone
 import qrcode
@@ -36,7 +36,6 @@ def upload_to_s3(image_file, file_name):
     bucket_name = 'x23212365-devops-proj'
     s3.upload_fileobj(image_file, bucket_name, file_name)
     return f"https://{bucket_name}.s3.amazonaws.com/{file_name}"
-@require_safe
 @login_required
 def create_event(request):
     """View function for creating an event."""
@@ -78,7 +77,7 @@ def update_event(request, event_id):
     else:
         form = EventForm(instance=event)
     return render(request, 'events/update_event.html', {'form': form})
-@require_POST
+@require_GET
 def book_event(request, event_id):
     """View function for booking an event."""
     event = get_object_or_404(Event, pk=event_id)
